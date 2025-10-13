@@ -16,7 +16,7 @@ my_group = {
         "job": "student",
         "connections": {
             "friend": ["yuchen"],
-            "landlord": ["yuchen"]
+            "partner": ["yuchen"]
         }
     }
 }
