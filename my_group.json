@@ -1,0 +1,26 @@
+{
+    "yuchen": {
+        "age": 22,
+        "job": "student",
+        "connections": {
+            "friend": [
+                "yuqi"
+            ],
+            "partner": [
+                "yuqi"
+            ]
+        }
+    },
+    "yuqi": {
+        "age": 21,
+        "job": "student",
+        "connections": {
+            "friend": [
+                "yuchen"
+            ],
+            "partner": [
+                "yuchen"
+            ]
+        }
+    }
+}

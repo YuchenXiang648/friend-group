@@ -1,6 +1,7 @@
 """An example of how to represent a group of acquaintances in Python."""
 
 # Your code to go here...
+import json
 
 my_group = {
     "yuchen": {
@@ -54,3 +55,19 @@ def average_age():
     """Return the mean age of all people in the group."""
     ages = [info["age"] for info in my_group.values() if info["age"] is not None]
     return sum(ages) / len(ages) if ages else None
+
+# --- Save the group to a JSON file ---
+with open("my_group.json", "w") as f:
+    json.dump(my_group, f, indent=4)  # indent=4 makes it look neat
+
+print("Group saved to my_group.json")
+
+# --- Load the group back from the JSON file ---
+with open("my_group.json", "r") as f:
+    loaded_group = json.load(f)
+
+print("Group loaded back from JSON")
+
+# Optional: check if it’s identical
+print("Same as original?", loaded_group == my_group)
+
