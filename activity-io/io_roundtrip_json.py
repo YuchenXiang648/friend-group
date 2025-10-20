@@ -25,4 +25,4 @@ if __name__ == "__main__":
     save_json(group, out)
     loaded = load_json(out)
     assert loaded == group, "Round-trip mismatch!"
-    print("JSON round-trip OK ✅")
+    print("JSON round-trip OK")
