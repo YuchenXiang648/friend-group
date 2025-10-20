@@ -1,0 +1,38 @@
+{
+  "members": [
+    {
+      "id": "alice",
+      "age": 21,
+      "hobbies": [
+        "climbing",
+        "reading"
+      ]
+    },
+    {
+      "id": "bob",
+      "age": 22,
+      "hobbies": [
+        "music"
+      ]
+    },
+    {
+      "id": "chris",
+      "age": 20,
+      "hobbies": []
+    }
+  ],
+  "friendships": [
+    [
+      "alice",
+      "bob"
+    ],
+    [
+      "bob",
+      "chris"
+    ]
+  ],
+  "meta": {
+    "created_by": "xiang-yin",
+    "version": 1
+  }
+}
