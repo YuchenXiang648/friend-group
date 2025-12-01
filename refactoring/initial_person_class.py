@@ -9,14 +9,14 @@ class Person:
         self.connections = dict()
 
     def add_connection(self, person, relation):
-        """Add a new connection to a person"""
+        """Add a new connection to a person."""
         if person in self.connections:
             raise ValueError(f"I already know about {person.name}")
         self.connections[person] = relation
 
     def forget(self, person):
-        """Removes any connections to a person"""
-        pass
+        """Remove any connection to a person, if it exists."""
+        self.connections.pop(person, None)
 
 
 def average_age(group):
@@ -26,19 +26,25 @@ def average_age(group):
 
 
 if __name__ == "__main__":
-    # ...then create the group members one by one...
+    # Create the group members one by one...
     jill = Person("Jill", 26, "biologist")
+    zalika = Person("Zalika", 28, "artist")
+    john = Person("John", 27, "writer")
+    nash = Person("Nash", 34, "chef")
 
     # ...then add the connections one by one...
-    # Note: this will fail from here if the person objects aren't created
     jill.add_connection(zalika, "friend")
+    jill.add_connection(john, "partner")
+    nash.add_connection(john, "cousin")
+    nash.add_connection(zalika, "landlord")
 
     # ... then forget Nash and John's connection
     nash.forget(john)
+
     # Then create the group
     my_group = {jill, zalika, john, nash}
 
     assert len(my_group) == 4, "Group should have 4 members"
     assert average_age(my_group) == 28.75, "Average age of the group is incorrect!"
-    assert len(nash.connections) == 1, "Nash should only have one relation "
+    assert len(nash.connections) == 1, "Nash should only have one relation"
     print("All assertions have passed!")

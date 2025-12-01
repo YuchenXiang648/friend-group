@@ -18,7 +18,7 @@ class Group:
 
     def size(self):
         """Return how many people are in the group."""
-        pass
+        return len(self.members)
 
     def contains(self, name):
         """Check whether the group contains a person with the given name.
@@ -28,21 +28,47 @@ class Group:
 
     def add_person(self, name, age, job):
         """Add a new person with the given characteristics to the group."""
+        if self.contains(name):
+            raise ValueError(f"{name} is already in the group")
         self.members.append(Person(name, age, job))
 
     def number_of_connections(self, name):
-        """Find the number of connections that a person in the group has"""
-        pass
+        """Find the number of connections that a person in the group has."""
+        return len(self.connections.get(name, {}))
+
+    def _ensure_member_exists(self, name):
+        """Internal helper to check that a name is in the group."""
+        if not self.contains(name):
+            raise ValueError(f"{name} is not in the group")
 
     def connect(self, name1, name2, relation, reciprocal=True):
         """Connect two given people in a particular way.
-        Optional reciprocal: If true, will add the relationship from name2 to name 1 as well
+        Optional reciprocal: If true, will add the relationship from name2 to name1 as well.
         """
-        pass
+        self._ensure_member_exists(name1)
+        self._ensure_member_exists(name2)
+
+        # Add connection from name1 to name2
+        self.connections.setdefault(name1, {})[name2] = relation
+
+        # Optionally add reciprocal connection
+        if reciprocal:
+            self.connections.setdefault(name2, {})[name1] = relation
 
     def forget(self, name1, name2):
         """Remove the connection between two people."""
-        pass
+        # Remove connection name1 -> name2
+        if name1 in self.connections:
+            self.connections[name1].pop(name2, None)
+            # Remove empty dicts to keep structure tidy (optional)
+            if not self.connections[name1]:
+                self.connections.pop(name1, None)
+
+        # Remove connection name2 -> name1
+        if name2 in self.connections:
+            self.connections[name2].pop(name1, None)
+            if not self.connections[name2]:
+                self.connections.pop(name2, None)
 
     def average_age(self):
         """Compute the average age of the group's members."""
@@ -53,10 +79,19 @@ class Group:
 if __name__ == "__main__":
     # Start with an empty group...
     my_group = Group()
+
     # ...then add the group members one by one...
     my_group.add_person("Jill", 26, "biologist")
+    my_group.add_person("Zalika", 28, "artist")
+    my_group.add_person("John", 27, "writer")
+    my_group.add_person("Nash", 34, "chef")
+
     # ...then their connections
     my_group.connect("Jill", "Zalika", "friend")
+    my_group.connect("Jill", "John", "partner")
+    my_group.connect("Nash", "John", "cousin")
+    my_group.connect("Nash", "Zalika", "landlord")
+
     # ... then forget Nash and John's connection
     my_group.forget("Nash", "John")
 
